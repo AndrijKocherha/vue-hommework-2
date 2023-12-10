@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<title>task4</title>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Задача 5. Самостійно сформуйте масив даних та виведіть фрагмент на зразок поданого (дані не обов’язково повинні співпадати)
+					</div>
+				</div>
+				<div class="websites" id="app">
+					<div class="websites__block website-block" v-for="websiteData in websiteList" :key="websiteData.id">
+						<div class="website-block__head head-website-block">
+							<div class="head-website-block__logo"><img :src="websiteData.logo" alt="" /></div>
+							<div class="head-website-block__head-content">
+								<h4 class="head-website-block__name">{{websiteData.nameWebsite}}</h4>
+								<a :href="websiteData.linkWebsite" class="head-website-block__link">{{websiteData.linkWebsite}}</a>
+							</div>
+						</div>
+						<a :href="websiteData.linkWebsite" class=""><h2 class="website-block__title">{{websiteData.title}}</h2></a>
+						<div class="website-block__text"><p>{{websiteData.textContent}}</p></div>
+					</div>
+				</div>
+
+				<script>
+					const { createApp } = Vue
+					const websiteList = [
+						{
+							id: 4567,
+							logo: "img/github.png",
+							nameWebsite: "GitHub",
+							linkWebsite: "https://github.com/",
+							title: "GitHub: Where the world builds software",
+							textContent:
+								"GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
+						},
+						{
+							id: 4977,
+
+							logo: "img/stackoverflow.png",
+							nameWebsite: "Stack Overflow",
+							linkWebsite: "https://stackoverflow.com/",
+							title: "Stack Overflow - Where Developers Learn, Share, & Build Careers",
+							textContent:
+								"Stack Overflow is the largest, most trusted online community for developers to learn, share​ ​their programming ​knowledge, and build their careers.",
+						},
+						{
+							id: 48667,
+
+							logo: "img/medium.png",
+							nameWebsite: "Medium",
+							linkWebsite: "https://medium.com/",
+							title: "Medium – Where good ideas find you",
+							textContent:
+								"Medium is an open platform where readers find dynamic thinking, and where expert and undiscovered voices can share their writing on any topic.",
+						},
+						{
+							id: 9467,
+
+							logo: "img/linkedin.png",
+							nameWebsite: "LinkedIn",
+							linkWebsite: "https://www.linkedin.com/",
+							title: "LinkedIn: Log In or Sign Up",
+							textContent:
+								"675 million+ members | Manage your professional identity. Build and engage with your professional network. Access knowledge, insights and opportunities.",
+						},
+						{
+							id: 4927,
+
+							logo: "img/netflix.png",
+							nameWebsite: "Netflix",
+							linkWebsite: "https://www.netflix.com/",
+							title: "Netflix - Watch TV Shows Online, Watch Movies Online",
+							textContent: "Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+						},
+					]
+					const app = createApp({
+						data() {
+							return {}
+						},
+						computed: {
+							websiteList() {
+								return websiteList
+							},
+						},
+					})
+					app.mount("#app")
+				</script>
+			</div>
+		</main>
+	</body>
+</html>

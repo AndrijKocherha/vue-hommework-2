@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<title>task2</title>
+		<style>
+			.corect-answer {
+				border: 1px solid green;
+			}
+			.incorect-answer {
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Задача 3. Елемент тренажера англійської. Виводимо зображення елемента і слово. Користувач вводить відповідь. Якщо вірно – відтворюємо фразу «Добре. Молодець!»
+						(і додаємо зелену рамку до елемента), якщо ні - то відтворюємо фразу «Невірно, спробуйте ще раз» (і додаємо червону рамку).
+					</div>
+				</div>
+				<!--<div class="simulator-of-eanglish block" :class="{ 'corect-answer': checkUserAnswer, 'incorect-answer': !checkUserAnswer }" id="app">-->
+				<div id="app">
+					<div class="simulator-of-eanglish block" :class="borderColorClass">
+						<div>
+							<img style="width: 200px" :src="wordImageSrc" alt="" />
+							<div>{{wordOnEanglish}}</div>
+						</div>
+						<input v-model="userTranslatedWord" type="text" />
+						<button @click="checkUserAnswer">Перевірити</button>
+						<div v-show="isClicked">{{messageToUser}}</div>
+					</div>
+				</div>
+			</div>
+			<script>
+				const { createApp } = Vue
+				const eanglishWordsWithsImages = [
+					{
+						id: 23,
+						wordOnEanglish: "table",
+						wordOnUkrainian: "стіл",
+						img: "https://images.squarespace-cdn.com/content/v1/5939ca1ce4fcb59ef7c40ac8/1558318402550-DM2B632YM25U6JXUYXNN/SLEEK-SALVER-DINING-%28FRONT+VIEW%29.jpg?format=1000w",
+					},
+					{
+						id: 25,
+						wordOnEanglish: "book",
+						wordOnUkrainian: "книжка",
+						img: "https://img.freepik.com/free-photo/book-composition-with-open-book_23-2147690555.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1699315200&semt=ais",
+					},
+					{
+						id: 27,
+						wordOnEanglish: "wood",
+						wordOnUkrainian: "дерево",
+						img: "https://housing.com/news/wp-content/uploads/2023/04/What-is-timber-wood-and-which-are-the-best-types-f.jpg",
+					},
+				]
+				const app = createApp({
+					data() {
+						return {
+							randWordDataIndx: null,
+							wordImageSrc: null,
+							wordOnEanglish: null,
+							userTranslatedWord: null,
+							borderColorClass: null,
+							wordOnUkrainian: null,
+							messageToUser: null,
+							isClicked: null,
+						}
+					},
+					created() {
+						this.randWordDataIndx = this.getRandIndxOfWordData()
+						this.wordImageSrc = eanglishWordsWithsImages[this.randWordDataIndx].img
+						this.wordOnEanglish = eanglishWordsWithsImages[this.randWordDataIndx].wordOnEanglish
+						this.wordOnUkrainian = eanglishWordsWithsImages[this.randWordDataIndx].wordOnUkrainian
+					},
+					methods: {
+						getRandIndxOfWordData() {
+							return 0 + Math.floor(Math.random() * eanglishWordsWithsImages.length)
+						},
+						checkUserAnswer() {
+							if (this.userTranslatedWord) {
+								this.isClicked = true
+								this.wordOnUkrainian = this.wordOnUkrainian.toLocaleLowerCase()
+								this.userTranslatedWord = this.userTranslatedWord.trim().toLowerCase()
+								console.log(this.userTranslatedWord)
+								if (this.wordOnUkrainian === this.userTranslatedWord) {
+									this.messageToUser = "Добре. Молодець!"
+									this.borderColorClass = "corect-answer"
+								} else {
+									this.borderColorClass = "incorect-answer"
+
+									this.messageToUser = "Невірно, спробуйте ще раз"
+								}
+							}
+						},
+					},
+					computed: {},
+				})
+				app.mount("#app")
+			</script>
+		</main>
+	</body>
+</html>

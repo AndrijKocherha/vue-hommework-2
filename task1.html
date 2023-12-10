@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<title>task1</title>
+		<style>
+			.plane-ticket-select-block {
+				display: flex;
+				align-items: start;
+				flex-direction: column;
+				gap: 20px;
+				color: #000000;
+			}
+			.select-things-block {
+				height: 400px;
+			}
+			.business-background {
+				background: url("img/business-class.jpg") 0 0 / contain no-repeat;
+			}
+			.cloud-background {
+				background: url("img/cloud.webp") 0 0 / contain no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Задача 2. З випадаючого списку вибираємо клас квитка у літаку. Якщо 1) бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано коньяк, то
+						запропонувати закуску (так/ні)), на фоні зображення бізнес кают 2) економ – виводимо елементи для вибору типу пива і чипсів, на фоні хмарки.
+					</div>
+				</div>
+				<form class="plane-ticket-select-block" id="app">
+					<label>Seleclt ticket class</label>
+					<select v-model="ticketClass" name="ticket-class">
+						<option value="business">Business class</option>
+						<option value="economy">Economy class</option>
+					</select>
+					<div class="select-things-block" :class="backbroundClass">
+						<label>elements that you can select</label>
+						<select v-model="userSelectedThing">
+							<template v-for="(thingToSelect,key,indx) in thingsToSelect">
+								<option :value="key">{{thingToSelect}}</option>
+							</template>
+						</select>
+						<div v-if="isCognacSelected" class="block">
+							<span>do you want snack</span>
+							<button type="button">yes</button>
+							<button type="button">no</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<script>
+				const { createApp } = Vue
+				const thingsUserCanSelect = {
+					business: {
+						newsPaper: "газета",
+						cognac: "коняк",
+					},
+					economy: {
+						beer: "пиво",
+						chips: "чіпси",
+					},
+				}
+				console.log(thingsUserCanSelect)
+				const app = createApp({
+					data() {
+						return {
+							ticketClass: "business",
+							userSelectedThing: "newsPaper",
+							backbroundClass: "business-background",
+						}
+					},
+					computed: {
+						thingsToSelect() {
+							if (this.ticketClass === "business") {
+								this.userSelectedThing = "newsPaper"
+								this.backbroundClass = "business-background"
+								return thingsUserCanSelect.business
+							} else {
+								this.userSelectedThing = "beer"
+								this.backbroundClass = "cloud-background"
+								return thingsUserCanSelect.economy
+							}
+						},
+						isCognacSelected() {
+							return this.userSelectedThing === "cognac"
+						},
+					},
+				})
+				app.mount("#app")
+			</script>
+		</main>
+	</body>
+</html>

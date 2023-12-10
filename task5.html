@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<title>task5</title>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Задача 6. Задача. На кухню поступають замовлення. Спочатку ми додаємо їх у список “Очікують на виконання”, якщо повар береться робити — замовлення переходить
+						у список “Виконуються”, якщо замовлення виконано — переходить у список “Готові до виносу”. Якщо натиснути на “Подано” - страва зникає з таблиці Підказка: тут
+						треба зберігати 3 масиви страв ( waitingList, processingList, completedList)
+					</div>
+				</div>
+				<div id="app">
+					<div class="orders">
+						<div class="orders__add-dish add-dish">
+							<label>Нова замовлена страва: <input v-model="newDishName" type="text" /></label>
+							<button @click="addDishToWaitingList">Додати</button>
+						</div>
+						<div class="orders__steps">
+							<div class="orders__step">
+								<div class="orders__title">Очікують виконання</div>
+								<div class="orders__step-body">
+									<div class="step" v-for="dishData, indx in waitingList" :key="dishData.id">
+										<div class="step__name-dish">{{dishData.dishName}}</div>
+										<button @click="addDishToProcessingList(indx)">Готувати</button>
+									</div>
+								</div>
+							</div>
+							<div class="orders__step">
+								<div class="orders__title">Виконуються</div>
+								<div class="orders__step-body">
+									<div class="step" v-for="dishData, indx in processingList" :key="dishData.id">
+										<div class="step__name-dish">{{dishData.dishName}}</div>
+										<button @click="addDishToCompletedList(indx)">Приготовлено</button>
+									</div>
+								</div>
+							</div>
+							<div class="orders__step">
+								<div class="orders__title">Готові до виносу</div>
+								<div class="orders__step-body">
+									<div class="step" v-for="dishData, indx in completedList" :key="dishData.id">
+										<div class="step__name-dish">{{dishData.dishName}}</div>
+										<button @click="serveTheDishAndDeleteFromOrder(indx)">Подано</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+				const { createApp } = Vue
+				const app = createApp({
+					data() {
+						return {
+							newDishName: null,
+							waitingList: [],
+							processingList: [],
+							completedList: [],
+						}
+					},
+					methods: {
+						addDishToWaitingList() {
+							if (this.newDishName) {
+								this.waitingList.push({
+									id: new Date().getTime(),
+									dishName: this.newDishName,
+								})
+							}
+						},
+						addDishToProcessingList(indx) {
+							this.processingList.push(this.waitingList[indx])
+							this.waitingList.splice(indx, 1)
+						},
+						addDishToCompletedList(indx) {
+							this.completedList.push(this.processingList[indx])
+							this.processingList.splice(indx, 1)
+						},
+						serveTheDishAndDeleteFromOrder(indx) {
+							this.completedList.splice(indx, 1)
+						},
+					},
+				})
+				app.mount("#app")
+			</script>
+		</main>
+	</body>
+</html>

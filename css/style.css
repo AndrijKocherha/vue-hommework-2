@@ -1,0 +1,129 @@
+[class*="__container"] {
+	max-width: 1100px;
+	margin: 0px auto;
+	padding: 30px 15px;
+}
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+.title {
+	font-size: 25px;
+	font-weight: 500;
+}
+.text {
+	font-size: 16px;
+	line-height: 1.3;
+}
+.page__list {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+.page__item {
+}
+.page__link {
+	display: block;
+	font-size: 20px;
+	color: #fff;
+	background-color: #794f45;
+	padding: 7px;
+	text-align: center;
+}
+.page__link:visited {
+	background-color: #7a956b;
+}
+.task {
+	margin-bottom: 40px;
+	font-size: 20px;
+	line-height: 1.2;
+	color: #30eedb;
+}
+.block {
+	display: inline-flex;
+	align-items: start;
+	flex-direction: column;
+	gap: 20px;
+}
+.websites {
+	display: grid;
+	gap: 20px;
+}
+.website-block {
+	display: grid;
+	gap: 30px;
+}
+.website-block__head {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+.head-website-block {
+}
+.head-website-block__logo {
+}
+.head-website-block__logo img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.head-website-block__head-content {
+	display: grid;
+	gap: 10px;
+}
+.head-website-block__name {
+	font-weight: 600;
+	font-size: 18px;
+}
+.head-website-block__link {
+}
+.head-website-block__link:hover {
+	color: blue;
+}
+.website-block__title {
+	font-size: 22px;
+	font-weight: 600;
+	color: #135495;
+}
+.website-block__title:hover {
+	color: blue;
+}
+.website-block__text {
+}
+/* ============== */
+.orders {
+	border: 1px solid #fff;
+	padding: 10px;
+	display: grid;
+	gap: 40px;
+}
+.orders__add-dish {
+	display: flex;
+	gap: 20px;
+}
+.orders__steps {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.orders__step-body {
+	display: grid;
+	gap: 10px;
+}
+.add-dish {
+}
+.orders__step {
+	border: 1px solid #fff;
+	padding: 10px;
+}
+.orders__title {
+	margin-bottom: 20px;
+}
+.step {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+.step__name-dish {
+}

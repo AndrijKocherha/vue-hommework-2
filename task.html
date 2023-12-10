@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<title>task0</title>
+		<style>
+			.login-ivan {
+				color: blue;
+			}
+			.inncorect-data {
+				color: red;
+			}
+			.sucsess {
+				display: flex;
+			}
+			.sucsess::before {
+				content: "";
+				width: 200px;
+				height: 200px;
+				background: url("img/smile.webp") 0 0 / 200px 200px no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Задача 1. Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл. Якщо ні, то: 1) якщо логін = Іван – колір повідомлення про помилку синій 2) якщо
+						хтось інший, то колір повідомлення червоний
+					</div>
+				</div>
+				<div class="block" id="app">
+					<label for="">Login <input v-model="userLogin" type="text" /></label>
+					<label for="">Password <input v-model="userPass" type="password" /></label>
+					<button @click="checkData">Go</button>
+					<div v-if="isDataEntered" :class="passStatus" class="">{{message}}</div>
+				</div>
+			</div>
+			<script>
+				const { createApp } = Vue
+				let usersCorectData = [
+					{
+						pass: 444,
+						login: "andr",
+					},
+					{
+						pass: 324,
+						login: "petro",
+					},
+					{
+						pass: 987,
+						login: "fedir",
+					},
+				]
+				const app = createApp({
+					data() {
+						return {
+							userLogin: null,
+							userPass: null,
+							message: null,
+							passStatus: null,
+						}
+					},
+					methods: {
+						checkData() {
+							if (this.isDataEntered) {
+								this.userLogin = this.userLogin.toLocaleLowerCase().trim()
+								this.userPass = this.userPass.trim()
+								for (const userData of usersCorectData) {
+									if (this.userPass == userData.pass && this.userLogin === userData.login) {
+										this.passStatus = "sucsess"
+										return
+									}
+								}
+								if (this.userLogin === "ivan") {
+									this.passStatus = "login-ivan"
+									this.message = "Синя помтлка"
+								} else {
+									this.passStatus = "inncorect-data"
+									this.message = "Червона помилка"
+								}
+							}
+						},
+					},
+					computed: {
+						isDataEntered() {
+							return this.userLogin && this.userPass
+						},
+					},
+				})
+				app.mount("#app")
+			</script>
+		</main>
+	</body>
+</html>
